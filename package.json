@@ -17,6 +17,7 @@
   },
   "scripts": {
     "cli": "ts-node src/cli.ts",
+    "start": "ts-node src/main.ts",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "test": "jest --detectOpenHandles --forceExit",
     "clean": "rm -rf dist build package",

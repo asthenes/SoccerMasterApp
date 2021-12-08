@@ -1,8 +1,8 @@
-import readline from 'readline';
 import fs from 'fs';
 import { main } from './main';
+import { getReadInterface } from './readInterface';
 
-//function to decide what to do with user input after startup
+//Checks filepaths for promptForFile
 export function isFilePath(input: string): boolean {
     const exists = fs.existsSync(input);
     if (exists) {
@@ -17,29 +17,22 @@ export function isFilePath(input: string): boolean {
 
 //if a path wasnt included on start, ask for one
 export async function promptForFile(query: string): Promise<string> {
-    let readInterface = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        terminal: false
-    });
+    const readInterface = await getReadInterface()
 
-    return new Promise((resolve, reject) => readInterface.question(query, ans => {
+    return new Promise(resolve => readInterface.question(query, ans => {
         if (isFilePath(ans)) {
             console.log(ans)
             resolve(ans);
         } else {
-            reject(() => {
-                console.log('Trying again...', '\n');
-                main('-f');
-
-            })
+            console.log('Trying again...', '\n');
+            main('-f');
         }
-    }));
+    }))
 }
 
 //sorts teams provided based on their scores in the match
 export function sortTeamsByScore(teams: string[], scores: RegExpMatchArray): string[] {
-    let sortedTeams = JSON.parse(JSON.stringify(teams))
+    const sortedTeams = JSON.parse(JSON.stringify(teams))
 
     sortedTeams.sort(function (_a: string, _b: string) {
         const firstTeamScore = parseInt(scores[0]);
@@ -50,8 +43,9 @@ export function sortTeamsByScore(teams: string[], scores: RegExpMatchArray): str
     return sortedTeams;
 }
 
+//sorts by current scores, and prints each matchday
 let matchDay = 1
-export function endMatchDay(trackingMap: Map<string, number>) {
+export function endMatchDay(trackingMap: Map<string, number>): void {
     const sortedTrackingMap = new Map([...trackingMap.entries()].sort((a, b) => b[1] - a[1]));
     const keysIterator = sortedTrackingMap.keys()
     const valuesIterator = sortedTrackingMap.values()

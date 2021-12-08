@@ -1,11 +1,11 @@
 import readline from 'readline';
 import fs from 'fs'
 
-emitGarbage();
+emitData();
 
-function emitGarbage() {
-    let readInterface = readline.createInterface({
-        input: fs.createReadStream('/mnt/e/Code/tsProjects/SoccerMasterApp/assets/junk.txt'),
+function emitData() {
+    const readInterface = readline.createInterface({
+        input: fs.createReadStream('/mnt/e/Code/tsProjects/SoccerMasterApp/assets/largeFile.txt'),
         output: process.stdout,
         terminal: false
     })
@@ -15,7 +15,6 @@ function emitGarbage() {
         console.log(line);
     })
 }
-
 
 function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );

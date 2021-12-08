@@ -1,38 +1,28 @@
-import { endMatchDay, promptForFile } from './utils'
+import { endMatchDay } from './utils'
 import { wonMatch, tiedMatch } from './constants'
 import { isTieGame, isValid, saveMatchDetails, teamsSorted } from './matchDetails';
-import readline from 'readline';
-import * as fs from 'fs'
+import { getReadInterface } from './readInterface';
+import readline from 'readline'
 
-export async function main(args?: string): Promise<void> {
+export async function main(fileArg?: string): Promise<void> {
+
+  const trimmedArgs = process.argv.splice(2); //remove first 2 default args
+
+  //fileArg is just so the promptForFile function can recall main(-f) on failure
+  let readInterface: readline.Interface;
+  if (fileArg == '-f') {
+    readInterface = await getReadInterface(fileArg)
+  } else {
+    readInterface = await getReadInterface(trimmedArgs[0], trimmedArgs[1])
+  }
 
   let lineNumber = 0;
   let matchDayTracker: string[] = [];
-
-  let input = process.argv[3];
-
-  if (process.argv[2] == '-f' || args == '-f') {
-    if (!input) {
-      input = await promptForFile('Input full file path: ')
-    }
-    var readInterface = readline.createInterface({
-      input: fs.createReadStream(input),
-      output: process.stdout,
-      terminal: false
-    })
-  } else {
-    var readInterface = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-      terminal: false
-    });
-  }
-
   const trackingMap = new Map<string, number>();
 
   readInterface.on('line', async (line: string) => {
     ++lineNumber
-    //helper function to store details on a match for use in assigning points, including if the match was valid input
+    //splits the line into variables to we organize and assign pts
     saveMatchDetails(line);
 
     //if its valid, check if matchdays over, assign points, update trackers, etc.
@@ -50,7 +40,8 @@ export async function main(args?: string): Promise<void> {
         teamsSorted.forEach(team => trackingMap.set(team, tiedMatch + (trackingMap.get(team) ?? 0)))
       }
     } else {
-      console.warn('Invalid input on line #' + lineNumber + ', line was: ' + line)
+      //if its an invalid match, warn and move to next line
+      console.warn('\n', 'Invalid input on line #' + lineNumber + ', line was: ' + line)
     }
     matchDayTracker.push(...teamsSorted)
   }).on('close', function () {
@@ -61,5 +52,3 @@ export async function main(args?: string): Promise<void> {
   })
 
 }
-
-main()

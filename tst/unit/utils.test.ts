@@ -4,9 +4,9 @@ import readline from 'readline'
 //Need to work on mocking in ts. It's a bit different than what I'm used to
 const filePath = '/mnt/e/Code/tsProjects/SoccerMasterApp/README.md'
 const incorrectfilePath = '/incorrect/filepath'
-let teams = ['a', 'b']
-let sortedteams = ['b','a']
-let scores = ['1', '2']
+const teams = ['a', 'b']
+const sortedteams = ['b','a']
+const scores = ['1', '2']
 
 test('isFilePathTrue', () => {
     expect(isFilePath(filePath)).toBe(true);
