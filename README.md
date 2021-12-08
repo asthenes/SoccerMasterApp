@@ -6,6 +6,9 @@ It's built using typescript and node.js, tests with jest, and uses yarn for pack
 ## Getting Started
 
 ```bash
+# Might need to install yarn
+npm install --global yarn
+
 # Install dependencies and build
 yarn install
 yarn build
