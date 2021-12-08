@@ -103,6 +103,12 @@
 					<h2>Design thoughts</h2>
 				</a>
 				<p>Going into this I wasn&#39;t really sure how typescript apps are typically structured, so I settled for splitting things up similar to how I was taught to code at Amazon.</p>
+				<p>The main things I wanted to achieve were:</p>
+				<ul>
+					<li>Ease of use. Make it work in as many cases as possible</li>
+					<li>Extensibility. Split out utilities, avoid redundant code</li>
+					<li>Readability. I wanted it to actually make sense when looked at (in part because I&#39;ve never used typescript for something like this and was learning a lot along the way) </li>
+				</ul>
 				<p>The entrypoint for this app is cli.ts. It has one argument (-f) which designates whether a file will be loaded or not. Leaving this argument out will cause the program to hang while it waits to get input from STDIN, such as when piping data in from a separate app (like inputTestApp.ts)</p>
 				<p>To read the file or STDIN line by line I use a readline.Interface listening for &#39;line&#39; events. I split the function responsible for creating this interface into its own module for testing purposes. It takes 2 optional args that indicate what type of input to expect, or if it needs to prompt for a file path. I thought about just made it mandatory to provide a file path on start if specifying (-f) but I wanted the app to work either way.</p>
 				<p>After figuring out the interface, the app tries to read an incoming line. The first step it takes is to try and split the incoming line into separate variables using the saveMatchDetails function. This is so that the match string can be validated and its separate parts used to make sorted arrays to figure out the winner (or if its a tie)</p>
