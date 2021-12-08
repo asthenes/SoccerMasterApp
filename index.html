@@ -73,17 +73,15 @@
 <span style="color: #000000">yarn install</span>
 <span style="color: #000000">yarn build</span>
 
-<span style="color: #008000">#CLI help is available but its basically the same info as below</span>
+<span style="color: #008000"># CLI help is available but its basically the same info as below</span>
 <span style="color: #000000">yarn cli --help</span>
 
-<span style="color: #008000"># If no filepath is provided after -f, it will prompt for one</span>
+<span style="color: #008000"># To run, use the commands below. If no filepath is provided after -f, it will prompt for one</span>
 <span style="color: #000000">yarn cli -f </span>
 <span style="color: #000000">yarn cli -f &lt;path to your file&gt;</span>
 
-<span style="color: #008000"># You can redirect files in this way also</span>
+<span style="color: #008000"># if -f isnt used it will wait for stdin. You can redirect or pipe in this way</span>
 <span style="color: #000000">yarn cli &lt; &lt;path to your file&gt;</span>
-
-<span style="color: #008000"># And you can pipe in data from an app</span>
 <span style="color: #000000">node &lt;your app&gt; | yarn cli</span>
 
 <span style="color: #008000"># Here are the full commands I used to test all of the above</span>
