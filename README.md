@@ -40,7 +40,7 @@ yarn test
 ```
 ## Design thoughts
 
-Going into this I wasn't really sure how typescript apps are typically structured, so I settled for splitting things up similar to how I was taught to code at Amazon. For some of the setup I used a generic template off github that had some preset package.json stuff so that I wouldn't have to figure that out from scratch. All in a all a good learning experience though.
+Going into this I wasn't really sure how typescript apps are typically structured, so I settled for splitting things up similar to how I was taught to code at Amazon.
 
 The entrypoint for this app is cli.ts. It has one argument (-f) which designates whether a file will be loaded or not. Leaving this argument out will cause the program to hang while it waits to get input from STDIN, such as when piping data in from a separate app (like inputTestApp.ts)
 

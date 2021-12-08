@@ -5,7 +5,7 @@ emitData();
 
 function emitData() {
     const readInterface = readline.createInterface({
-        input: fs.createReadStream('/mnt/e/Code/tsProjects/SoccerMasterApp/assets/largeFile.txt'),
+        input: fs.createReadStream('./assets/largeFile.txt'),
         output: process.stdout,
         terminal: false
     })
