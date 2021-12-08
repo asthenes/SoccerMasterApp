@@ -13,17 +13,15 @@ npm install --global yarn
 yarn install
 yarn build
 
-#CLI help is available but its basically the same info as below
+# CLI help is available but its basically the same info as below
 yarn cli --help
 
-# If no filepath is provided after -f, it will prompt for one
+# To run, use the commands below. If no filepath is provided after -f, it will prompt for one
 yarn cli -f 
 yarn cli -f <path to your file>
 
-# You can redirect files in this way also
+# if -f isnt used it will wait for stdin. You can redirect or pipe in this way
 yarn cli < <path to your file>
-
-# And you can pipe in data from an app
 node <your app> | yarn cli
 
 # Here are the full commands I used to test all of the above
